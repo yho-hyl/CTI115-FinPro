@@ -1,19 +1,12 @@
 
 
-//⅃  Color: Dark Blue
-//L  Color: Light orange
-//■  Color: Yellow
-//|  Color: Light Blue
-//S  Color: Green
-//Z  Color: Red
-//T  Color: Purple
+
 
 x=10
 y=20
 
-let tbl = [];
+
 let grid = document.createElement(`table`);
-tbl = []; // Reset the global tbl array
 
 
 
@@ -36,6 +29,30 @@ function createBoard() {
         grid.appendChild(tableRow);
     }
     document.body.appendChild(grid);
+
+    // Shapes
+    let pieces = [
+        [[1,1,1,1]], // | piece
+        [[1,1],[1,1]], // ■ piece
+        [[0,1,0],[1,1,1]], // T piece
+        [[1,0,0],[1,1,1]], // L piece
+        [[0,0,1],[1,1,1]], // ⅃ piece
+        [[0,1,1],[1,1,0]], // S piece
+        [[1,1,0],[0,1,1]]  // Z piece
+    ];
+
+    // Colors
+    let colors = ["cyan", "yellow", "purple", "orange", "blue", "green", "red"];
+
+
+    function spawnPiece() {
+        let randomIndex = Math.floor(Math.random() * pieces.length);
+        currentShape = pieces[randomIndex];
+        currentColor = colors[randomIndex];
+        currentX = 3;
+        currentY = 0;
+
+    }
 }
 
 
@@ -49,21 +66,48 @@ class Cell {
         this.x = x;
         this.y = y;
         this.table = this.generateCellDiv(); 
-        this.value = Cell.value;
     } 
     
     generateCellDiv() {
         let td = document.createElement(`td`);
-        
+
+
         // Slightly smaller cells so a height of 20 fits on screen
         td.style.width = "15px";
         td.style.height = "15px"; 
         td.style.backgroundColor = "transparent";
-        
+
+        td.innerText = this.value
         return td;
     }
 }
 
+
+
+
+
+
+
+class player extends Cell {
+    currentShape;
+    currentColor;
+    currentX = 0;
+    currentY = 0;
+    gameInterval;
+
+    constructor (currentX, currentY) {
+        currentX = this.currentX;
+        currentY = this.currentY;
+        super(value);
+    }
+
+    grabity () {
+        let randomIndex = Math.floor(Math.random() * pieces.length);
+        currentShape = pieces[randomIndex];
+        currentColor = colors[randomIndex];
+    }
+
+}
 
 
 
