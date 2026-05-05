@@ -95,25 +95,30 @@ class player {
                         }
                         rotatedShape.push(newRow);
                     }
-                    currentShape = rotatedShape; 
+                    if (checkCollision(currentShape, currentX, currentY) == false) {
+                        currentShape = rotatedShape;
+                    }
                     break;
 
                 case 37: //Left Arrow
-                    console.log("Left Arrow");
-                    activePlayer.x--;
-                    update()
+                    if (checkCollision(currentShape, currentX, currentY) == false) {
+                        activePlayer.x--;
+                        update()
+                    }
                     break;
                 
                 case 39: //Right Arrow
-                    console.log("Right Arrow");
-                    activePlayer.x++;
-                    update()
+                    if (checkCollision(currentShape, currentX, currentY) == false) {
+                        activePlayer.x++;
+                        update()
+                    }
                     break;
                 
                 case 40: //Down Arrow
-                    console.log("Down Arrow");
-                    activePlayer.y++;
-                    update()
+                    if (checkCollision(currentShape, currentX, currentY) == false) {
+                        activePlayer.y++;
+                        update()
+                    }
                     break;
 
             }
@@ -133,6 +138,20 @@ class player {
         this.y++
     }
 
+    checkCollision(cs, testX, testY) {
+        for (let r = 0; r < row; r++) {
+            for (let c = 0; c < column; c++) {
+                if (cs[r][c] == 1) {
+                    if (testX < 0 || testX >= column || testY < 0) {
+                        return true;
+                    }
+
+
+                //Future note: need to check collision with placed blocks
+                }
+            }
+        }
+    }
 }
 
 function update() {
