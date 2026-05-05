@@ -87,8 +87,15 @@ class player {
         document.addEventListener('keydown', function(key) {
             switch (key.keyCode) {
                 case 38: //Up Arrow
-                    console.log("Up Arrow")
-                    activePlayer.y--;
+                    let rotatedShape = [];
+                    for (let c = 0; c < currentShape[0].length; c++) {
+                        let newRow = [];
+                        for (let r = currentShape.length - 1; r >= 0; r--) {
+                            newRow.push(currentShape[r][c]);
+                        }
+                        rotatedShape.push(newRow);
+                    }
+                    currentShape = rotatedShape; 
                     break;
 
                 case 37: //Left Arrow
