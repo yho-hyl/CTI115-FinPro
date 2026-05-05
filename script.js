@@ -3,6 +3,8 @@ const row = 20;
 let board = [];
 let currentShape;
 let currentColor;
+let currentX;
+let currentY;
 
 
 
@@ -53,7 +55,10 @@ class Cell {
     constructor(x, y) {
         this.x = x;
         this.y = y;
+        this.value = 0;
+
         this.td = this.generateCellDiv(); 
+        
     } 
     
     generateCellDiv() {
@@ -80,21 +85,30 @@ class player {
     constructor () {
         this.spawnPiece();
         document.addEventListener('keydown', function(key) {
-            if (key == "ArrowUp") {
-                console.log(key);
-                return;
-            }
-            if (key == "ArrowUp") {
-                console.log(key);
-                return;
-            }
-            if (key == "ArrowUp") {
-                console.log(key);
-                return;
-            }
-            if (key == "ArrowUp") {
-                console.log(key);
-                return;
+            switch (key.keyCode) {
+                case 38: //Up Arrow
+                    console.log("Up Arrow")
+                    activePlayer.y--;
+                    break;
+
+                case 37: //Left Arrow
+                    console.log("Left Arrow");
+                    activePlayer.x--;
+                    update()
+                    break;
+                
+                case 39: //Right Arrow
+                    console.log("Right Arrow");
+                    activePlayer.x++;
+                    update()
+                    break;
+                
+                case 40: //Down Arrow
+                    console.log("Down Arrow");
+                    activePlayer.y++;
+                    update()
+                    break;
+
             }
 
         })
@@ -105,7 +119,7 @@ class player {
         currentShape = pieces[randomIndex];
         currentColor = colors[randomIndex];
         this.x = 3;
-        this.y = 0;
+        this.y = -1;
     }
 
     gravity(){
@@ -116,13 +130,10 @@ class player {
 
 function update() {
     for (let r = 0; r < row; r++) {
-        for (c = 0; c < column; c++) {
+        for (let c = 0; c < column; c++) {
             let cellColor;
             if (board[r][c].value == 0) {
                 cellColor = "transparent";
-
-            } else {
-                cellColor = board[r][c].value;
             }
         board[r][c].setColor(cellColor);
         }
@@ -145,7 +156,7 @@ function update() {
 
 
 createBoard()
-let activePlayer = new player;
+let activePlayer = new player();
 
 setInterval(function() {
     activePlayer.gravity();
